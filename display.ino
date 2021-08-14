@@ -41,12 +41,20 @@ void onInput(int x){
    handleSelectButtonClick("Select");
  }
 
+}
 
+// Add whitespace to text 
+String addWhiteSpace(String text, int length){
+  for(int i = 0; i<length; i++){
+    text += " ";
+  }
+
+  return text;
 }
 
 // Input handlers
 void handleUpButtonClick(String args){
-     lcd.print("Top ");
+     lcd.print("Top    ");
 }
 
 void handleDownButtonClick(String args){
