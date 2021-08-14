@@ -5,6 +5,9 @@ by Saeed Hosseini @ Electropeak
 https://electropeak.com/learn/
 */
 #include <LiquidCrystal.h>
+
+
+
 //LCD pin to Arduino
 const int pin_RS = 8; 
 const int pin_EN = 9; 
@@ -14,10 +17,20 @@ const int pin_d6 = 6;
 const int pin_d7 = 7; 
 const int pin_BL = 10; 
 LiquidCrystal lcd( pin_RS,  pin_EN,  pin_d4,  pin_d5,  pin_d6,  pin_d7);
+
+// Custom configs
+const String logo = "ALEX ON";
+
+
+
 void setup() {
  lcd.begin(16, 2);
+
+ // Sets the cursor to top left of LCD
  lcd.setCursor(0,0);
- lcd.print("Electropeak.com");
+ lcd.print(logo);
+
+ // Sets the cursor to bottom left of LCD
  lcd.setCursor(0,1);
  lcd.print("Press Key:");
 }
@@ -26,16 +39,16 @@ void setup() {
 void onInput(int x){
  lcd.setCursor(10,1);
  if (x < 60) {
-   handleRightButtonClick("Right ");
+   handleRightButtonClick("Right");
  }
  else if (x < 200) {
-   handleUpButtonClick("Up ");
+   handleUpButtonClick("Up");
  }
  else if (x < 400){
-   handleDownButtonClick("Down ");
+   handleDownButtonClick("Down");
  }
  else if (x < 600){
-   handleLeftButtonClick("Left ");
+   handleLeftButtonClick("Left");
  }
  else if (x < 800){
    handleSelectButtonClick("Select");
