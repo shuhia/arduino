@@ -29,3 +29,7 @@ Read more at [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.
     Arduino: Upload Alt + Cmd + U or Alt + Ctrl + U
     Arduino: Verify Alt + Cmd + R or Alt + Ctrl + R
     Arduino: Rebuild IntelliSense Configuration Alt + Cmd + I or Alt + Ctrl + I
+
+## Technologies
+Arduino 
+VSCODE

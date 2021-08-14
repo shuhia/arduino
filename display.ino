@@ -21,23 +21,62 @@ void setup() {
  lcd.setCursor(0,1);
  lcd.print("Press Key:");
 }
-void loop() {
- int x;
- x = analogRead (0);
+
+// determine input
+void onInput(int x){
  lcd.setCursor(10,1);
  if (x < 60) {
-   lcd.print ("Right ");
+   handleRightButtonClick("Right ");
  }
  else if (x < 200) {
-   lcd.print ("Up    ");
+   handleUpButtonClick("Up ");
  }
  else if (x < 400){
-   lcd.print ("Down  ");
+   handleDownButtonClick("Down ");
  }
  else if (x < 600){
-   lcd.print ("Left  ");
+   handleLeftButtonClick("Left ");
  }
  else if (x < 800){
-   lcd.print ("Select");
+   handleSelectButtonClick("Select");
  }
+
+
+}
+
+// Input handlers
+void handleUpButtonClick(String args){
+     lcd.print("Top ");
+}
+
+void handleDownButtonClick(String args){
+     lcd.print("Bottom ");
+}
+
+void handleLeftButtonClick(String args){
+     lcd.print("Left ");
+}
+
+void handleRightButtonClick(String args){
+     lcd.print("Right ");
+}
+
+void handleSelectButtonClick(String args){
+     lcd.print("Select ");
+}
+
+void handleResetButtonClick(){
+  lcd.print("Reset ");
+}
+
+
+
+
+void loop() {
+ int x;
+ // Check for input 
+ x = analogRead (0);
+  onInput(x);
+ 
 } 
+
