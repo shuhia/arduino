@@ -38,6 +38,6 @@ void loop() {
    lcd.print ("Left  ");
  }
  else if (x < 800){
-   LCD.print ("Select");
+   lcd.print ("Select");
  }
 } 
