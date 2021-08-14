@@ -44,38 +44,39 @@ void onInput(int x){
 }
 
 // Add whitespace to text 
-String addWhiteSpace(String text, int length){
-  for(int i = 0; i<length; i++){
+String fillWithSpace(String text, int preferedLength){
+  for(int i = text.length(); i<=preferedLength; i++){
     text += " ";
   }
 
   return text;
 }
 
+String formatText(String text){
+  return fillWithSpace(text, 6);
+}
+
 // Input handlers
 void handleUpButtonClick(String args){
-     lcd.print("Top    ");
+     lcd.print(formatText("Top    "));
 }
 
 void handleDownButtonClick(String args){
-     lcd.print("Bottom ");
+     lcd.print(formatText("Bottom "));
 }
 
 void handleLeftButtonClick(String args){
-     lcd.print("Left ");
+     lcd.print(formatText("Left "));
 }
 
 void handleRightButtonClick(String args){
-     lcd.print("Right ");
+     lcd.print(formatText("Right "));
 }
 
 void handleSelectButtonClick(String args){
-     lcd.print("Select ");
+     lcd.print(formatText("Select "));
 }
 
-void handleResetButtonClick(){
-  lcd.print("Reset ");
-}
 
 
 
