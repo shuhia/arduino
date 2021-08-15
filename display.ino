@@ -10,6 +10,12 @@ String addWhiteSpace(String text, int length)
   return text;
 }
 
+#define DISPLAY_BUTTON_UP 0
+#define DISPLAY_BUTTON_DOWN 1
+#define DISPLAY_BUTTON_LEFT 2
+#define DISPLAY_BUTTON_RIGHT 4
+#define DISPLAY_BUTTON_SELECT 5
+
 String formatText(String text)
 {
   return addWhiteSpace(text, 6);
@@ -93,13 +99,65 @@ void setup()
   initPins();
 }
 
+// determineDisplayButton
+// Function returns an integer value based on what button is pressed
+int determineDisplayButton(int value)
+{
+  isButtonDown = true;
+  if (value < 60)
+  {
+    return DISPLAY_BUTTON_RIGHT;
+  }
+  else if (value < 200)
+  {
+    return DISPLAY_BUTTON_UP;
+  }
+  else if (value < 400)
+  {
+    return DISPLAY_BUTTON_DOWN;
+  }
+  else if (value < 600)
+  {
+    return DISPLAY_BUTTON_LEFT;
+  }
+  else if (value < 800)
+  {
+    return DISPLAY_BUTTON_SELECT;
+  }
+
+  return 0;
+}
+
+void handleKeyPress(int key)
+{
+  switch (key)
+  {
+  case DISPLAY_BUTTON_UP:
+    handleUpButtonClick("Up ");
+    break;
+  case DISPLAY_BUTTON_DOWN:
+    handleDownButtonClick("Down ");
+    break;
+  case DISPLAY_BUTTON_LEFT:
+    handleLeftButtonClick("Left ");
+    break;
+  case DISPLAY_BUTTON_RIGHT:
+    handleRightButtonClick("Right ");
+    break;
+  case DISPLAY_BUTTON_SELECT:
+    handleSelectButtonClick("Select");
+    break;
+  default:
+    break;
+  }
+}
+
 // determine input
-void onInput(int x)
+void onInput(int value)
 {
 
-  lcd.setCursor(10, 1);
-
-  if (x == 1023)
+  // Check if button is down
+  if (value == 1023)
   {
     isButtonDown = false;
     return;
@@ -108,26 +166,9 @@ void onInput(int x)
   if (!isButtonDown)
   {
     isButtonDown = true;
-    if (x < 60)
-    {
-      handleRightButtonClick("Right ");
-    }
-    else if (x < 200)
-    {
-      handleUpButtonClick("Up ");
-    }
-    else if (x < 400)
-    {
-      handleDownButtonClick("Down ");
-    }
-    else if (x < 600)
-    {
-      handleLeftButtonClick("Left ");
-    }
-    else if (x < 800)
-    {
-      handleSelectButtonClick("Select");
-    }
+    lcd.setCursor(10, 1);
+    int key = determineDisplayButton(value);
+    handleKeyPress(key);
   }
 }
 
