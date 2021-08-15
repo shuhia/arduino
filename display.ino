@@ -49,6 +49,16 @@ const int DISPLAY_MAX_LENGTH = 16;
 String menuItems[6] = {"0", "1", "2", "3", "3", "4"};
 
 int selectedIndex = 0;
+
+void selectNextItem()
+{
+  selectedIndex++;
+}
+
+void selectPreviousItem()
+{
+  selectedIndex--;
+}
 bool isButtonDown = false;
 
 void initDisplay()
@@ -165,38 +175,44 @@ void handleKeyPress(int key)
   }
 }
 
-// determine input
-void onInput(int value)
+bool onButton(int value)
 {
-
   // Check if button is down
   if (value == 1023)
   {
     isButtonDown = false;
-    return;
+    return false;
   }
 
   if (!isButtonDown)
   {
     isButtonDown = true;
-    lcd.setCursor(10, 1);
     int key = determineDisplayButton(value);
     handleKeyPress(key);
+    return true;
   }
+}
+
+// check for types of input
+bool onInput(int value)
+{
+  if (onButton(value))
+    return true;
+  return false;
 }
 
 // Input handlers
 void handleUpButtonClick(String args)
 {
   printSelectedKeyOnFirstRow("Top");
-  selectedIndex++;
+  selectNextItem();
   updateDisplayRow(1);
 }
 
 void handleDownButtonClick(String args)
 {
   printSelectedKeyOnFirstRow("Bottom");
-  selectedIndex--;
+  selectPreviousItem();
   updateDisplayRow(1);
 }
 
