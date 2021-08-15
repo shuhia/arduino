@@ -151,7 +151,7 @@ int determineDisplayButton(int value)
   return 0;
 }
 
-void handleKeyPress(int key)
+void handleButtonPress(int key)
 {
   switch (key)
   {
@@ -188,7 +188,7 @@ bool onButton(int value)
   {
     isButtonDown = true;
     int key = determineDisplayButton(value);
-    handleKeyPress(key);
+    handleButtonPress(key);
     return true;
   }
 }
