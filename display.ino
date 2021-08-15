@@ -87,6 +87,19 @@ void updateDisplayRow(int row)
   }
 }
 
+void printOnDisplayRow(int row, String text)
+{
+  clearDisplayRow(row);
+  lcd.setCursor(0, row);
+  lcd.print(text);
+}
+
+// Prints text selected key on row 0
+void printSelectedKeyOnFirstRow(String key)
+{
+  printOnDisplayRow(0, "key: " + key);
+}
+
 void initPins()
 {
   pinMode(pin_d2, OUTPUT);
@@ -175,36 +188,36 @@ void onInput(int value)
 // Input handlers
 void handleUpButtonClick(String args)
 {
-  lcd.print("Top");
+  printSelectedKeyOnFirstRow("Top");
   selectedIndex++;
   updateDisplayRow(1);
 }
 
 void handleDownButtonClick(String args)
 {
-  lcd.print("Bottom");
+  printSelectedKeyOnFirstRow("Bottom");
   selectedIndex--;
   updateDisplayRow(1);
 }
 
 void handleLeftButtonClick(String args)
 {
-  lcd.print("Left");
+  printSelectedKeyOnFirstRow("Left");
 }
 
 void handleRightButtonClick(String args)
 {
-  lcd.print("Right");
+  printSelectedKeyOnFirstRow("Right");
 }
 
 void handleSelectButtonClick(String args)
 {
-  lcd.print("Select");
+  printSelectedKeyOnFirstRow("Select");
 }
 
 void handleResetButtonClick()
 {
-  lcd.print("Reset ");
+  printSelectedKeyOnFirstRow("Reset ");
 }
 
 void loop()
