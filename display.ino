@@ -1,5 +1,4 @@
-// UTILITY FUNCTIONS
-// Add whitespace to text
+
 String addWhiteSpace(String text, int length)
 {
   for (int i = 0; i < length; i++)
@@ -9,18 +8,11 @@ String addWhiteSpace(String text, int length)
 
   return text;
 }
-
-#define DISPLAY_BUTTON_UP 0
-#define DISPLAY_BUTTON_DOWN 1
-#define DISPLAY_BUTTON_LEFT 2
-#define DISPLAY_BUTTON_RIGHT 4
-#define DISPLAY_BUTTON_SELECT 5
-
 String formatText(String text)
 {
   return addWhiteSpace(text, 6);
 }
-
+#pragma region Liquid Crystal
 /*
 Arduino 2x16 LCD - Detect Buttons
 modified on 18 Feb 2019
@@ -44,22 +36,25 @@ const int pin_d3 = 3;
 
 LiquidCrystal lcd(pin_RS, pin_EN, pin_d4, pin_d5, pin_d6, pin_d7);
 
+#pragma endregion
+
 const int DISPLAY_MAX_LENGTH = 16;
+int selectedButton = 0;
 
+#pragma region Menu
+int selectedItem = 0;
 String menuItems[6] = {"0", "1", "2", "3", "3", "4"};
-
-int selectedIndex = 0;
-
 void selectNextItem()
 {
-  selectedIndex++;
+  selectedItem++;
 }
-
 void selectPreviousItem()
 {
-  selectedIndex--;
+  selectedItem--;
 }
-bool isButtonDown = false;
+#pragma endregion
+
+#pragma region Display
 
 void initDisplay()
 {
@@ -69,7 +64,7 @@ void initDisplay()
 
   lcd.setCursor(0, 1);
   lcd.print("Select item: ");
-  lcd.print(menuItems[selectedIndex]);
+  lcd.print(menuItems[selectedItem]);
 }
 
 void clearDisplayRow(int row)
@@ -93,7 +88,7 @@ void updateDisplayRow(int row)
     clearDisplayRow(1);
     lcd.setCursor(0, 1);
     lcd.print("Select item: ");
-    lcd.print(selectedIndex);
+    lcd.print(selectedItem);
   }
 }
 
@@ -104,12 +99,15 @@ void printOnDisplayRow(int row, String text)
   lcd.print(text);
 }
 
-// Prints text selected key on row 0
+// Prints text selected key on row
 void printSelectedKeyOnFirstRow(String key)
 {
   printOnDisplayRow(0, "key: " + key);
 }
 
+#pragma endregion
+
+#pragma region initalize
 void initPins()
 {
   pinMode(pin_d2, OUTPUT);
@@ -122,8 +120,17 @@ void setup()
   initPins();
 }
 
+#pragma endregion
 // determineDisplayButton
 // Function returns an integer value based on what button is pressed
+#pragma region Buttons
+#define DISPLAY_BUTTON_UP 0
+#define DISPLAY_BUTTON_DOWN 1
+#define DISPLAY_BUTTON_LEFT 2
+#define DISPLAY_BUTTON_RIGHT 4
+#define DISPLAY_BUTTON_SELECT 5
+bool isButtonDown = false;
+
 int determineDisplayButton(int value)
 {
   isButtonDown = true;
@@ -153,6 +160,7 @@ int determineDisplayButton(int value)
 
 void handleButtonPress(int key)
 {
+  selectedButton = key;
   switch (key)
   {
   case DISPLAY_BUTTON_UP:
@@ -236,10 +244,15 @@ void handleResetButtonClick()
   printSelectedKeyOnFirstRow("Reset ");
 }
 
+#pragma endregion
 void loop()
 {
   int x;
   // Check for input
   x = analogRead(0);
+  Serial.println(x);
+
+  // Filter input
+
   onInput(x);
 }
