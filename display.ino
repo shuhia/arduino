@@ -39,6 +39,7 @@ LiquidCrystal lcd(pin_RS, pin_EN, pin_d4, pin_d5, pin_d6, pin_d7);
 #pragma endregion
 
 const int DISPLAY_MAX_LENGTH = 16;
+
 int selectedButton = 0;
 
 #pragma region Menu
@@ -183,7 +184,7 @@ void handleButtonPress(int key)
   }
 }
 
-bool onButton(int value)
+bool checkButton(int value)
 {
   // Check if button is down
   if (value == 1023)
@@ -204,7 +205,7 @@ bool onButton(int value)
 // check for types of input
 bool onInput(int value)
 {
-  if (onButton(value))
+  if (checkButton(value))
     return true;
   return false;
 }
