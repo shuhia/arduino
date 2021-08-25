@@ -31,10 +31,10 @@ const int pin_d7 = 7;
 const int pin_BL = 10;
 
 // Available digital output
-#define DIGITAL_OUTPUT_ONE 2;
-#define DIGITAL_OUTPUT_TWO 3;
-const int pin_d2 = DIGITAL_OUTPUT_ONE;
-const int pin_d3 = DIGITAL_OUTPUT_TWO;
+#define DIGITAL_OUTPUT_TWO 2;
+#define DIGITAL_OUTPUT_THREE 3;
+const int pin_d2 = DIGITAL_OUTPUT_TWO;
+const int pin_d3 = DIGITAL_OUTPUT_THREE;
 
 LiquidCrystal lcd(pin_RS, pin_EN, pin_d4, pin_d5, pin_d6, pin_d7);
 
@@ -218,7 +218,7 @@ void handleUpButtonClick(String args)
   printSelectedKeyOnFirstRow("Top");
   selectNextItem();
   updateDisplayRow(1);
-  const int pin = DIGITAL_OUTPUT_ONE;
+  const int pin = DIGITAL_OUTPUT_TWO;
   digitalWrite(pin, HIGH);
 }
 
@@ -227,7 +227,7 @@ void handleDownButtonClick(String args)
   printSelectedKeyOnFirstRow("Bottom");
   selectPreviousItem();
   updateDisplayRow(1);
-  const int pin = DIGITAL_OUTPUT_ONE;
+  const int pin = DIGITAL_OUTPUT_TWO;
   digitalWrite(pin, LOW);
 }
 
